@@ -1,0 +1,5 @@
+stock_id,material,thickness_mm,density_g_cm3,yield_mpa,available_sheet_mm
+A1,6061-T6,6.0,2.70,276,300x300
+A2,7075-T6,6.0,2.81,503,250x500
+S1,17-4PH-H900,4.0,7.75,1170,200x400
+S2,304-SS,5.0,8.00,215,300x600

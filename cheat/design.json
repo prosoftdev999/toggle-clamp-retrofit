@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "units": "mm",
+  "reconstruction": {
+    "frame_pivot_span_mm": 93.057,
+    "moving_link_span_mm": 87.953,
+    "corrected_feature_swap": "S2/P07"
+  },
+  "link": {
+    "material_stock_id": "A1",
+    "pin_span_mm": 87.953,
+    "dogleg_offset_mm": 18.9,
+    "body_width_mm": 18.0,
+    "end_outer_diameter_mm": 22.0,
+    "pin_hole_diameter_mm": 10.4,
+    "thickness_mm": 6.0,
+    "facet_count_per_circle": 96
+  },
+  "engineering_checks": {
+    "minimum_swept_clearance_mm": 2.536,
+    "jam_load_safety_factor": 13.433,
+    "pair_mass_g": 63.69
+  },
+  "artifacts": ["left_link.stl", "right_link.stl"]
+}

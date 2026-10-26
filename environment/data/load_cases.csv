@@ -1,0 +1,5 @@
+case,pin_load_n,cycles,temperature_c
+normal_close,1280,2400000,24
+carton_jam,2860,12000,31
+washdown_restart,1975,4800,8
+guard_contact,2210,200,27

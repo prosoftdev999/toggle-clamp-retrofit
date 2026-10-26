@@ -1,0 +1,4 @@
+name,x_mm,y_mm,radius_mm,clearance_mm
+air_line,45.0,40.0,5.0,2.0
+guard_boss,70.0,70.0,6.0,2.0
+sensor_body,80.0,80.0,5.0,2.0

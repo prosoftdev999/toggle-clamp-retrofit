@@ -1,0 +1,39 @@
+artifacts = [
+  "/app/output/left_link.stl",
+  "/app/output/right_link.stl",
+  "/app/output/left_sweep_envelope.stl",
+  "/app/output/clearance_audit.csv",
+  "/app/output/cut_profiles.dxf",
+  "/app/output/machine_toolpaths.dxf",
+  "/app/output/cam_report.json",
+  "/app/output/design.json",
+]
+
+[task]
+name = "afterquery/toggle-clamp-retrofit"
+
+[metadata]
+author_name = "Thomas Morison"
+author_email = "matiasv931026@gmail.com"
+difficulty_explanation = "The CMM, stock, load, keep-out, and waterjet records are synthetic task data rather than copied measurements or certificates, but their units, noise, setup changes, label reversal, and fabrication constraints reflect a plausible shop problem. A mechanical or manufacturing engineer would do this work when a worn linkage needs replacement CAD without moving the machine's pivots or pneumatic routing. The task couples metrology, kinematics, strength, mass, topology, fixture clearance, nesting, and CAM. Its decisive edge is the final route: the solver must choose among scrap-safe contour starts, obey inner-before-outer precedence, and minimize rapid travel whose individual legs must detour around expanded fixture rectangles. That combines a visibility-graph shortest-path problem with a precedence-constrained global search, so nearest-cut and straight-line heuristics can both look reasonable and still fail. Human and AI solvers receive the same documented inputs and rules; neither needs a hidden constant."
+solution_explanation = "The reference registers each CMM setup from DATUM_A and DATUM_D, chooses the B/C assignment with the smoothest two tracks, and identifies S2/P07 as reversed. It takes robust span medians, rotates the reconciled poses into the stated machine frame, and searches dogleg offsets against every sampled keep-out. From that reconstruction it writes the full closest-point audit, selects the lightest passing stock, builds the handed solids and sweep envelope, and nests the nominal profiles. The CAM stage applies half-kerf offsets, evaluates the allowed scrap-side lead-ins, and expands each fixture rectangle by its head allowance. A corner visibility graph supplies the shortest legal rapid between any two candidates, while subset dynamic programming chooses the globally shortest precedence-respecting sequence and start side. The DXFs and JSON are generated from that route; the earlier meshes, nominal contours, audit, and engineering values remain input-derived and unchanged."
+verification_explanation = "The verifier independently rebuilds the registered motion, corrected labels, stock and strength checks, all 162 audit rows, both handed sections, and the sweep envelope from sealed CSV inputs. Existing calibrated bands are unchanged: 0.01 mm for spans, 0.02 mm for clearance and nominal-DXF metrics, 0.08 g for mass, 0.12 mm for link bounds, 1 percent for section and envelope area, and 0.20 mm for envelope bounds. Those bands cover reporting precision, 64/96/128-facet exports, rounded or mitered joins, and alternate valid polygon unions while remaining small relative to engineering limits. The CAM test independently reapplies kerf compensation, matches all eight contours within 0.5 percent area, checks lead and cut coordinates within 0.02 mm, verifies scrap-side leads and precedence, expands the sealed rapid keep-outs, and checks every reported rapid segment stays outside their interiors. It recomputes each shortest visibility path and the global route; the 0.02 mm route band only covers three-decimal reporting. The JSON-only shortcut still scores zero because the measured meshes, audit, two DXFs, and route report are absent."
+category = "Hardware"
+subcategory = "CAD"
+tags = ["cad", "mechanism", "metrology", "stl", "kinematics"]
+expert_time_estimate_hours = 10
+relevant_experience = "I have worked on mechanical design handoffs where inspection data, available stock, pin fits, motion clearance, and fabrication-ready CAD all have to agree. This task reflects the practical review needed when a worn mechanism must be reconstructed without a complete drawing."
+
+[verifier]
+timeout_sec = 180.0
+environment_mode = "separate"
+
+[agent]
+timeout_sec = 7200
+
+[environment]
+build_timeout_sec = 900.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0

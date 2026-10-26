@@ -1,0 +1,2 @@
+machine_id,kerf_mm,lead_in_mm,rapid_start_x_mm,rapid_start_y_mm
+WJ-3,1.2,5.0,0.0,0.0
